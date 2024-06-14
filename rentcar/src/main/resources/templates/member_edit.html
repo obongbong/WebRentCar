@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 수정</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>회원 수정</h1>
+    <form th:action="@{/members/update}" th:object="${member}" method="post">
+        <input type="hidden" th:field="*{memId}">
+        <div class="form-group">
+            <label for="memPassword">비밀번호</label>
+            <input type="password" class="form-control" id="memPassword" th:field="*{memPassword}">
+        </div>
+        <div class="form-group">
+            <label for="memName">이름</label>
+            <input type="text" class="form-control" id="memName" th:field="*{memName}">
+        </div>
+        <div class="form-group">
+            <label for="memAddress">주소</label>
+            <input type="text" class="form-control" id="memAddress" th:field="*{memAddress}">
+        </div>
+        <div class="form-group">
+            <label for="memPhoneNum">전화번호</label>
+            <input type="text" class="form-control" id="memPhoneNum" th:field="*{memPhoneNum}">
+        </div>
+        <button type="submit" class="btn btn-primary">수정완료</button>
+    </form>
+</div>
+</body>
+</html>

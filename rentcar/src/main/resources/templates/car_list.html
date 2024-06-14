@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>차량 목록</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>차량 목록</h1>
+
+    <form th:action="@{/cars/search}" method="get" class="form-inline mb-3">
+        <label for="carNumber" class="mr-sm-2">차량 번호 검색:</label>
+        <input type="text" id="carNumber" name="carNumber" class="form-control mr-sm-2">
+        <button type="submit" class="btn btn-primary">검색</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">차량 번호</th>
+            <th scope="col">차량 이름</th>
+            <th scope="col">차량 색상</th>
+            <th scope="col">배기량</th>
+            <th scope="col">차량 제조사</th>
+            <th scope="col">즐겨찾기</th>
+            <th scope="col">수정</th>
+            <th scope="col">삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car : ${carList}">
+            <td th:text="${car.carNumber}"></td>
+            <td th:text="${car.carName}"></td>
+            <td th:text="${car.carColor}"></td>
+            <td th:text="${car.carSize}"></td>
+            <td th:text="${car.carMaker}"></td>
+            <td>
+                <form th:action="@{/cars/toggleFavorite/{carNumber}(carNumber=${car.carNumber})}" method="post">
+                    <button type="submit" class="btn" th:classappend="${car.favorite} ? 'btn-warning' : 'btn-outline-warning'">
+                        <span th:text="${car.favorite} ? '*' : '즐겨찾기'"></span>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <a th:href="@{/cars/edit/{carNumber}(carNumber=${car.carNumber})}" class="btn btn-primary">수정</a>
+            </td>
+            <td>
+                <form th:action="@{/cars/delete/{carNumber}(carNumber=${car.carNumber})}" method="post">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

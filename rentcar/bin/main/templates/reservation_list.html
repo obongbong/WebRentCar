@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>예약 목록</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>예약 목록</h1>
+
+    <!-- 검색 폼 -->
+    <form th:action="@{/reservations/search}" method="get" class="form-inline mb-3">
+        <label for="resNumber" class="mr-sm-2">예약 번호 검색:</label>
+        <input type="text" id="resNumber" name="resNumber" class="form-control mr-sm-2">
+        <button type="submit" class="btn btn-primary">검색</button>
+    </form>
+
+    <div th:if="${paymentMessage}" class="alert alert-success" role="alert" th:text="${paymentMessage}"></div>
+
+    <!-- 예약 목록 테이블 -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">예약 번호</th>
+            <th scope="col">예약 일자</th>
+            <th scope="col">사용 시작 일자</th>
+            <th scope="col">반납 일자</th>
+            <th scope="col">차량 번호</th>
+            <th scope="col">회원 ID</th>
+            <th scope="col">결제 여부</th>
+            <th scope="col">결제 금액</th>
+            <th scope="col">결제</th>
+            <th scope="col">수정</th>
+            <th scope="col">삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reservation : ${reservationList}">
+            <td th:text="${reservation.resNumber}"></td>
+            <td th:text="${reservation.resDate}"></td>
+            <td th:text="${reservation.useBeginDate}"></td>
+            <td th:text="${reservation.returnDate}"></td>
+            <td th:text="${reservation.resCarNumber != null ? reservation.resCarNumber.carNumber : ''}"></td>
+            <td th:text="${reservation.resUserId != null ? reservation.resUserId.userId : '회원 없음'}"></td>
+            <td th:text="${reservation.isPaid != null && reservation.isPaid ? '결제완료' : '미결제'}"></td>
+            <td th:text="${reservation.paymentAmount != null ? reservation.paymentAmount : '0'}"></td>
+            <td>
+                <form th:action="@{/reservations/pay/{resNumber}(resNumber=${reservation.resNumber})}" method="post">
+                    <button type="submit" class="btn btn-success" th:disabled="${reservation.isPaid}">결제</button>
+                </form>
+            </td>
+            <td>
+                <a th:href="@{/reservations/edit/{resNumber}(resNumber=${reservation.resNumber})}" class="btn btn-primary">수정</a>
+            </td>
+            <td>
+                <form th:action="@{/reservations/delete/{resNumber}(resNumber=${reservation.resNumber})}" method="post">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

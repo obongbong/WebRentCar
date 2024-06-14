@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>차량 수정</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>차량 수정</h1>
+    <form th:action="@{/cars/update}" th:object="${car}" method="post">
+        <input type="hidden" th:field="*{carNumber}">
+        <div class="form-group">
+            <label for="carName">차량 이름</label>
+            <input type="text" class="form-control" id="carName" th:field="*{carName}">
+        </div>
+        <div class="form-group">
+            <label for="carColor">차량 색상</label>
+            <input type="text" class="form-control" id="carColor" th:field="*{carColor}">
+        </div>
+        <div class="form-group">
+            <label for="carSize">차량 크기</label>
+            <input type="number" class="form-control" id="carSize" th:field="*{carSize}">
+        </div>
+        <div class="form-group">
+            <label for="carMaker">차량 제조사</label>
+            <input type="text" class="form-control" id="carMaker" th:field="*{carMaker}">
+        </div>
+        <button type="submit" class="btn btn-primary">수정 완료</button>
+    </form>
+</div>
+</body>
+</html>

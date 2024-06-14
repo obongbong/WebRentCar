@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Main UI</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-primary btn-block" th:href="@{/members}">회원</a>
+            </div>
+			<div class="col-md-4">
+			    <a class="btn btn-primary btn-block" th:href="@{/cars/new}">차량</a>
+			</div>
+            <div class="col-md-4">
+                <a class="btn btn-primary btn-block" th:href="@{/reservations/new}">예약</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
